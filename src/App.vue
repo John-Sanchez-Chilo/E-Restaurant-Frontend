@@ -152,6 +152,6 @@ b {
 .warning {
   color: var(--color-warning);
 }
-/* COmentasrio prueba */
+/* Comentario prueba */
 </style>
 
