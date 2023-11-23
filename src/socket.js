@@ -63,11 +63,17 @@ export const socket = io(URL
 socket.on("get-complete-menu", (new_menu) => {
   console.log("menu actualizado",new_menu);
   state.menu = new_menu;
+  console.log("get-complete-menu", state.menu)
+  //state.menu.active = true
 });
 
 socket.on("get-menus", (menus) => {
   state.menus = menus;
 });
+
+socket.on("set-active", (value) =>{
+  state.menu.active = value;
+})
 
 //mostrar menu disponible
 socket.on("get-ready-menu", (menu) => {

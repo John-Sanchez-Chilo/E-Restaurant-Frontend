@@ -22,7 +22,7 @@
         </div>
         <div class="options">
           <button class="slider">Ir a Ordernar</button>
-          <button class="slider">Ir a reservaciones</button>
+          <!-- <button class="slider">Ir a reservaciones</button> -->
         </div>
     </div>
 </template>

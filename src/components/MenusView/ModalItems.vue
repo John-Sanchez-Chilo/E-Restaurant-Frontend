@@ -1,6 +1,6 @@
 <template>
-    <button :disabled="active" @click="openModal()" class="btn-modal" id="open-modal-menus">
-        Seleccionar un Menu
+    <button :disabled="active" @click="openModal()" class="btn-modal" type="button">
+        Seleccionar un Plato
     </button>
     <div v-if="showModal" class="modal">
         <div class="slider-container">
@@ -8,23 +8,23 @@
             <div class="card">
 
                 <div class="menus">
-                    <h2>Menus disponibles</h2>
-                    <table>
+                    <h2>Platos disponibles</h2>
+                    <table >
                         <thead>
                             <tr>
-                                <th>Nombre del menu</th>
+                                <th>Nombre del Plato</th>
+                                <th>Tipo</th>
                                 <th>Descripción</th>
-                                <th>Cantidad de platos</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-card">
                             <tr v-for="(menu, index) in menus" :key="index">
-                                <td>{{ menu.name }}</td>
-                                <td>{{ menu.description }}</td>
-                                <td>{{ menu.n_items }}</td>
+                                <td>{{ menu._name }}</td>
+                                <td>{{ menu._type }}</td>
+                                <td>{{ menu._description }}</td>
                                 <td class="primary">
-                                    <button class="select-menu" @click="close(menu)">
+                                    <button class="select-menu" @click="close(menu)" type="button">
                                         Seleccionar
                                     </button>
                                 </td>
@@ -48,12 +48,11 @@ export default {
         return{
             state,
             showModal: false,
-            //menus: [],
             menu_items: [],
         }
     },
     props: {
-        selectMenu: {type: Function, required: true}
+        selectItem: {type: Function, required: true}
         //menu_items: {type: Array, required: true}
     },
     computed: {
@@ -67,19 +66,17 @@ export default {
     methods: {
         openModal(){
             this.showModal = true;
-            console.log("Show modal")
-            //socket.emit("get-menus");
         },
         closeModal(){
             //this.selectMenu()
             this.showModal = false;
         },
         close(menu){
-            this.selectMenu(menu);
+            this.selectItem(menu);
             this.showModal = false;
         },
         get_menus(){
-            fetch("http://127.0.0.1:5000/api/get_menus")
+            fetch("http://127.0.0.1:5000/api/get_items")
             .then((res)=>(
                 res.ok? res.json() : Promise.reject(res)
             )) //forma abrevidad de lo de arriba
@@ -92,9 +89,7 @@ export default {
         }
     },
     mounted(){
-        //socket.emit("get-menus");
         this.get_menus()
-        console.log(this.active)
     }
 }
 </script>
@@ -140,9 +135,10 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.8rem;
-    overflow-y: auto;
-    height: 500px;
+    overflow-y:auto;
+    max-height: 400px;
 }
+
 .menus table{
   width: 100%;
   padding: var(--card-padding);

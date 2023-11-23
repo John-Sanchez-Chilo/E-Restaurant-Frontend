@@ -12,7 +12,7 @@
                     </th>
                     <th>
                       <button @click="order_change_state(index)" class="btn">
-                        Preparar
+                        {{action}}
                       </button>
                     </th>
                 </tr>
@@ -22,7 +22,7 @@
                   <td>{{item.name}}</td>
                   <td>{{item.description}}</td>
                   <td>{{item.amount}}</td>
-                  <td class="primary">Seleccionar</td>
+                  <!-- <td class="primary">Seleccionar</td> -->
                 </tr>
             </tbody>
         </table>
@@ -36,7 +36,8 @@ export default {
     props:{
       order: {type: Object, required: true},
       index: {type: Number, required: true},
-      order_change_state: {type: Function, required: true}
+      order_change_state: {type: Function, required: true},
+      action : {type: String, required: true}
     },
     data(){
         return {

@@ -3,12 +3,13 @@
     <main>
       <h1>Dashboard</h1>
       <div class="date">
-          <input type="date">
+          <input type="date" v-model="currentDate" disabled/>
+          <input type="time" v-model="currentTime" disabled />
       </div>
       
       <div class="recent-orders">
         <h2>Ordenes recientes</h2>
-        
+        <NoMenuComponent v-if="!state.menu.active"/>
         <table>
             <thead>
                 <tr>
@@ -49,7 +50,7 @@
           </template>
         </div>
       </div>
-      <!--  END DIV-FREQUENCY  -->
+      <!--  END DIV-FREQUENCY  
       <div class="div-personnel">
         <h2>Personal</h2>
         <div class="personnel">
@@ -66,7 +67,7 @@
             <p>Edward Dominic</p>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--  END DIV-PERSONEEL -->
     </div>
   </div>
@@ -77,17 +78,21 @@ import {socket, state} from '@/socket'
 //import Sidebar from '../components/Sidebar.vue'
 import Sidebar from '../components/Sidebar.vue'
 import Profile from '../components/Profile.vue'
+import NoMenuComponent from '../components/NoMenuComponent.vue'
+//import NoMenuComponentVue from '@/components/NoMenuComponent.vue'
 export default {
   name: 'DashboardView',
-  components: {Sidebar, Profile},
+  components: {Sidebar, Profile, NoMenuComponent},
   data(){
     return{
+      currentDate: '',
+      currentTime: '',
       state
     }
   },
   computed:{
-    connected(){
-      return state.orders;
+    current_menu(){
+      return state.menu;
     },
     summary(){
       return state.summary_orders;
@@ -113,12 +118,25 @@ export default {
       return {
         width: percentage
       }
-    }
+    },
+    updateDateTime() {
+      const nowInPeru = new Date().toLocaleString('en-US', {
+        timeZone: 'America/Lima',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const [time] = nowInPeru.split(' ');
+      this.currentTime = time
+    },
   },
   mounted(){
     socket.emit("get-summary");
     socket.emit("set-frequency");
-    console.log(state.frequency)
+    this.updateDateTime();
+    setInterval(this.updateDateTime, 1000);
+    const [day, month, year] = new Date().toLocaleDateString().split('/')
+    this.currentDate = `${year}-${month}-${day}`
+    console.log("state menu", this.current_menu)
   }
 }
 </script>

@@ -4,8 +4,8 @@
             <h1>Menu</h1>
             <div class="menu">
               <div v-if="active" class="current-menu">
-                <h2>Menu seleccionado</h2>
-                <div class="item" >
+                <h2>Menu en curso</h2>
+                <div class="menu-item" >
                     <div class="image">
                         <img src="https://png.pngtree.com/background/20210709/original/pngtree-restaurant-menu-design-stock-image-picture-image_554719.jpg" alt="">
                     </div>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="amount">
                         <p><strong>Cantidad de platos</strong></p>
-                        <p>{{state.menu.amount}}</p>
+                        <p>{{state.menu.n_items}}</p>
                     </div>
                     <div class="activation">
                         <button :class="{'disabled': state.menu.enabled || state.menu.amount === 0 }">Editar</button>
@@ -40,11 +40,11 @@
                   <div class="amount">
                     <button @click="decreaseAmount(item.id_item, index)" :disabled="item.enabled" :class="{'disabled': item.enabled}">-</button>
                     <p>{{item.amount}}</p>
-                    <button @click="increaseAmount(item.id_item, index)" :disabled="item.enabled" :class="{'disabled': item.enabled}">+</button>
+                    <button @click="increaseAmount(item.id_item, index)" :disabled="item.enabled" class="increase-button" :class="{'disabled': item.enabled}">+</button>
                   </div>
                   <div class="activation">
                     <button :class="{'disabled': !item.enabled}" @click="disableItem(item.id_item, index)">Deshabilitar</button>
-                    <button :class="{'disabled': item.enabled || item.amount === 0 }" @click="enableItem(item.id_item, index)">Habilitar</button>
+                    <button class="enable-button" :class="{'disabled': item.enabled || item.amount === 0 }" @click="enableItem(item.id_item, index)">Habilitar</button>
                   </div>
                 </div>
               </div>
@@ -110,7 +110,6 @@ export default {
   },
   mounted(){
     socket.emit("get-complete-menu");
-    console.log("Menu view mounted:", state.menu)
   }
 }
 </script>
@@ -161,12 +160,13 @@ main .menu{
 }
 
 .item{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
   background: rgb(191, 246, 191);
   width: 45rem;
   height: 14rem;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 
@@ -212,7 +212,7 @@ main .menu{
   opacity: 0.5;
 }
 
-.items button{
+.container button{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,5 +223,73 @@ main .menu{
   font-weight: bold;
   border-radius: 0.4rem;
 }
+
+/* ---- Menu Item ----- */
+
+.menu-item{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+  grid-column-gap: 1rem;
+  background: rgb(45, 141, 45);
+  width: 45rem;
+  height: 10rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+
+
+.menu-item .image{
+  display: flex;
+  align-items: center;
+  /*width: 12rem;
+  height: 7rem;*/
+}
+
+
+.menu-item .image img{
+  width: 12rem;
+  height: 7rem;
+  
+  border-radius: 1rem;
+}
+
+.menu-item .data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.menu-item .description{
+  color: white;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
+.menu-item .amount{
+    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.menu-item .activation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item .disabled{
+  opacity: 0.5;
+}
+
+
 
 </style>

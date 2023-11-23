@@ -2,22 +2,22 @@
   <div class="container">
     <main>
       <h1>Ordenes</h1>
-      <div class="date">
-          <input type="date">
-      </div>
       <div class="waiting-orders">
         <h2>Ordenes en espera</h2>
-        <CompleteOrder v-for="(order, index) in state.waiting" :key="index" :order="order" :index="index" :order_change_state="order_waiting_to_preparating"/>
+        <CompleteOrder v-for="(order, index) in state.waiting" :key="index" :order="order" :index="index" 
+        :order_change_state="order_waiting_to_preparating" :action="'Preparar'"/>
         <a href="#">Show all</a>
       </div>
       <div class="waiting-orders">
         <h2>Ordenes en preparación</h2>
-        <CompleteOrder v-for="(order, index) in state.preparating" :key="index" :order="order" :index="index" :order_change_state="order_preparating_to_ready"/>
+        <CompleteOrder v-for="(order, index) in state.preparating" :key="index" :order="order" :index="index" 
+        :order_change_state="order_preparating_to_ready" :action="'Terminar'"/>
         <a href="#">Show all</a>
       </div>
     </main>
     <!-- END RECENT orders-->
     <div class="right">
+      <!--  END DIV-FREQUENCY  
       <div class="div-frequency">
         <h2>Frecuencia de ordenes</h2>
         <div class="frequency">
@@ -46,7 +46,7 @@
             <p>5</p>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--  END DIV-FREQUENCY  -->
       <div class="div-personnel">
         <h2>Personal Disponible</h2>

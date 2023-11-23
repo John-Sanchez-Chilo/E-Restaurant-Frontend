@@ -32,9 +32,37 @@ const routes = [
         component: () => import('../views/FinishedOrdersView.vue')
       },
       {
-        path: 'menu',
-        name: 'menu',
-        component: () => import('../views/MenuView.vue')
+        path: 'current_menu',
+        name: 'current_menu',
+        component: () => import('../views/CurrentMenuView.vue')
+      },
+      {
+        path: 'menus',
+        name: 'menus',
+        component: () => import('../views/MenusView.vue'),
+        children: [
+          
+          {
+            path: 'create_item',
+            name: 'create_item',
+            component: () => import('../views/CreateMenuView.vue'),
+          },
+        ]
+      },
+      {
+        path: 'menus/create_menu',
+        name: 'create_menu',
+        component: () => import('../views/CreateMenuView.vue'),
+      },
+      {
+        path: 'bills',
+        name: 'bills',
+        component: () => import('../views/BillsView.vue')
+      },
+      {
+        path: 'payments',
+        name: 'payments',
+        component: () => import('../views/PaymentsView.vue')
       }
     ]
   },

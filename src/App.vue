@@ -33,6 +33,15 @@
   --card-padding: 1.8rem;
   --padding-1: 1.2rem;
    --box-shadow: 0 2rem 3rem var(--color-light);
+
+
+  --bs-border-radius:0.375rem;
+   --bs-border-color:#dee2e6;
+   --bs-border-width:1px;
+   --bs-body-bg:#fff;
+   --bs-body-color:#212529;
+   --bs-secondary-color:rgba(33, 37, 41, 0.75);
+   --bs-secondary-bg:#e9ecef;
 }
 
 /*=========DARK THEME VARAIBLES=============0*/
@@ -117,6 +126,7 @@ button {
   padding: 1rem 0.5rem;
   background: var(--color-primary);
   color: var(--color-white);
+  border-radius: 0.5rem;
 }
 
 .text-muted{

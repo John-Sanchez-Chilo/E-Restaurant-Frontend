@@ -4,7 +4,7 @@
         <div class="details">
             <p>{{item.name}}: {{item.description}}</p>
             <p>S/. {{item.price}}</p>
-            <button class="" v-if="item.amount < 1" @click="changeAddItem(item, index)">Ordenar</button>
+            <button class="dish-btn-order" v-if="item.amount < 1" @click="changeAddItem(item, index)">Ordenar</button>
             <button v-else class="cancel" @click="changeCancelItem(item, index)">Cancelar</button>
         </div>
     </div>

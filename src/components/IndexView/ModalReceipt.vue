@@ -1,5 +1,5 @@
 <template>
-    <button class="btn-receipt" @click="openModal()">
+    <button id="btn-receipt" class="btn-receipt" @click="openModal()">
         <i class="material-symbols-sharp btn-receipt">receipt_long</i>
         <p v-if="client_menu.count_selected > 0" class="badge">{{client_menu.count_selected}}</p>
     </button>
@@ -18,9 +18,9 @@
                     </div>
                     <p></p>
                     <div class="amount">
-                        <button @click="decreaseAmountItem(item, index)">-</button>
+                        <button id="increase-amount-btn" @click="decreaseAmountItem(item, index)">-</button>
                         <p>{{item.amount}}</p>
-                        <button @click="increaseAmountItem(item, index)">+</button>
+                        <button id="decrease-amount-btn" @click="increaseAmountItem(item, index)">+</button>
                     </div>
                     <p>S/. {{item.amount * item.price}}</p>
             </div>
@@ -33,7 +33,7 @@
             
             <div class="options">
                 <button @click="closeModal()">Retroceder</button>
-                <button @click="makeOrder()">Ordenar</button>
+                <button id="order-button" @click="makeOrder()">Ordenar</button>
             </div>
         </div>
     </div>
